@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>LoveCode - Divine ❤️</title>
+
+<style>
+
+*{
+box-sizing:border-box;
+}
+
+body{
+margin:0;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+font-family:Arial,sans-serif;
+background:linear-gradient(135deg,#080808,#650022);
+color:white;
+overflow:hidden;
+}
+
+
+.container{
+width:90%;
+max-width:420px;
+}
+
+
+.page{
+display:none;
+animation:fade 1s;
+}
+
+
+.active{
+display:block;
+}
+
+
+h1{
+font-size:40px;
+}
+
+
+p{
+font-size:18px;
+line-height:1.5;
+}
+
+
+button{
+background:#ff2775;
+border:none;
+color:white;
+padding:15px 30px;
+border-radius:30px;
+font-size:17px;
+margin:8px;
+cursor:pointer;
+}
+
+
+.heart{
+font-size:70px;
+animation:pulse 1s infinite;
+}
+
+
+@keyframes pulse{
+50%{
+transform:scale(1.2);
+}
+}
+
+
+@keyframes fade{
+from{
+opacity:0;
+transform:translateY(20px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+
+
+/* barre */
+
+.loader{
+height:15px;
+width:100%;
+background:#333;
+border-radius:20px;
+margin-top:30px;
+}
+
+
+.progress{
+height:100%;
+width:0%;
+background:#ff2775;
+border-radius:20px;
+}
+
+
+
+/* enveloppe */
+
+.envelope{
+
+width:200px;
+height:130px;
+background:#ff2775;
+margin:30px auto;
+border-radius:10px;
+position:relative;
+animation:float 2s infinite;
+cursor:pointer;
+
+}
+
+
+.envelope:before{
+
+content:"";
+position:absolute;
+top:0;
+left:0;
+border-left:100px solid transparent;
+border-right:100px solid transparent;
+border-top:70px solid #ff8ab5;
+
+}
+
+
+
+@keyframes float{
+
+50%{
+transform:translateY(-10px);
+}
+
+}
+
+
+
+/* DIVINE */
+
+.divine{
+
+font-size:55px;
+animation:show 2s;
+
+}
+
+
+@keyframes show{
+
+0%{
+opacity:0;
+transform:scale(0);
+}
+
+100%{
+opacity:1;
+transform:scale(1);
+}
+
+}
+
+
+
+/* coeurs */
+
+.coeur{
+
+position:absolute;
+font-size:30px;
+animation:tomber 3s linear forwards;
+
+}
+
+
+
+@keyframes tomber{
+
+0%{
+transform:translateY(-100px);
+opacity:1;
+}
+
+100%{
+transform:translateY(700px);
+opacity:0;
+}
+
+}
+
+
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<audio id="musique" loop>
+
+<source src="guy2bezbar-je pense a toi.mp3" type="audio/mpeg">
+
+</audio>
+
+
+
+<div class="container">
+
+
+<div class="page active" id="page1">
+
+<div class="heart">❤️</div>
+
+<h1>LoveCode</h1>
+
+<p>
+J’ai préparé une petite surprise pour Divine...
+</p>
+
+<button onclick="start()">
+Commencer ✨
+</button>
+
+</div>
+
+
+
+
+
+<div class="page" id="page2">
+
+<h1>Question 1</h1>
+
+<p>
+Qu’est-ce qui rend Divine spéciale ?
+</p>
+
+<button onclick="next()">
+Son sourire 😄
+</button>
+
+<button onclick="next()">
+Son énergie ⚡
+</button>
+
+<button onclick="next()">
+Son humour 😂
+</button>
+
+</div>
+
+
+
+
+
+<div class="page" id="page3">
+
+<h1>Question 2</h1>
+
+<p>
+Pourquoi Divine est une personne qu’on apprécie ?
+</p>
+
+<button onclick="next()">
+Elle fait sourire les autres ❤️
+</button>
+
+<button onclick="next()">
+Elle est unique ✨
+</button>
+
+
+</div>
+
+
+
+
+
+
+<div class="page" id="page4">
+
+<h1>Analyse...</h1>
+
+<p>
+Création du message parfait pour Divine 💕
+</p>
+
+
+<div class="loader">
+
+<div class="progress" id="progress"></div>
+
+</div>
+
+</div>
+
+
+
+
+
+
+
+<div class="page" id="page5">
+
+<h1>
+Une surprise arrive...
+</h1>
+
+
+<div class="envelope" onclick="openLetter()">
+
+</div>
+
+
+<p>
+Clique sur l’enveloppe 💌
+</p>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="page" id="page6">
+
+
+<h1 class="divine">
+DIVINE ❤️
+</h1>
+
+
+<p>
+
+Divine, j’ai une théorie 😂 :
+
+Les personnes comme toi devraient avoir une alerte spéciale,
+parce qu’elles rendent les journées des autres meilleures sans même essayer.
+
+Garde toujours ton sourire, ton énergie et ta bonne humeur.
+
+Ne change pas, tu es une personne qu’on remarque facilement ❤️.
+
+</p>
+
+
+<button onclick="location.reload()">
+
+Rejouer 💘
+
+</button>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+<script>
+
+
+let page=1;
+
+
+
+function start(){
+
+let musique=document.getElementById("musique");
+
+musique.play();
+
+next();
+
+}
+
+
+
+
+
+function next(){
+
+
+document.getElementById("page"+page)
+.classList.remove("active");
+
+
+page++;
+
+
+document.getElementById("page"+page)
+.classList.add("active");
+
+
+
+if(page==4){
+
+
+let progress=document.getElementById("progress");
+
+let width=0;
+
+
+let timer=setInterval(()=>{
+
+
+width++;
+
+progress.style.width=width+"%";
+
+
+if(width>=100){
+
+clearInterval(timer);
+
+
+setTimeout(()=>{
+
+next();
+
+},1000);
+
+
+}
+
+
+},35);
+
+
+}
+
+
+}
+
+
+
+
+function openLetter(){
+
+
+next();
+
+
+for(let i=0;i<40;i++){
+
+
+let coeur=document.createElement("div");
+
+
+coeur.innerHTML="❤️";
+
+coeur.className="coeur";
+
+
+coeur.style.left=Math.random()*100+"vw";
+
+
+coeur.style.animationDuration=(2+Math.random()*3)+"s";
+
+
+document.body.appendChild(coeur);
+
+
+
+setTimeout(()=>{
+
+coeur.remove();
+
+},4000);
+
+
+}
+
+
+}
+
+
+</script>
+
+
+</body>
+</html>
